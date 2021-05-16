@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.6)
+message("CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR}")
+message("CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}")
+message("PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR}")
+project(ex2)
+add_executable(ex2 main.cpp calc.cpp)
