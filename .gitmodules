@@ -1,0 +1,3 @@
+[submodule "ex5/cmake_test/deps/serial"]
+	path = ex5/cmake_test/deps/serial
+	url = git@gitlab.ical.tw:b1065144/serial.git

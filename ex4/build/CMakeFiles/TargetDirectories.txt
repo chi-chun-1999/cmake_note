@@ -1,0 +1,8 @@
+/home/ical/chi-chun/cmake_tutorial/ex4/build/CMakeFiles/rebuild_cache.dir
+/home/ical/chi-chun/cmake_tutorial/ex4/build/CMakeFiles/edit_cache.dir
+/home/ical/chi-chun/cmake_tutorial/ex4/build/lib/CMakeFiles/rebuild_cache.dir
+/home/ical/chi-chun/cmake_tutorial/ex4/build/lib/CMakeFiles/calc.dir
+/home/ical/chi-chun/cmake_tutorial/ex4/build/lib/CMakeFiles/edit_cache.dir
+/home/ical/chi-chun/cmake_tutorial/ex4/build/test/CMakeFiles/rebuild_cache.dir
+/home/ical/chi-chun/cmake_tutorial/ex4/build/test/CMakeFiles/app.dir
+/home/ical/chi-chun/cmake_tutorial/ex4/build/test/CMakeFiles/edit_cache.dir
