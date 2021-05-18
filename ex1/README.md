@@ -34,10 +34,45 @@ __Linking__
 
 ## 使用gcc進行編譯
 
+### gcc 簡單編譯
+到 `./hello` 資料夾以gcc進行編譯，執行以下指令
+```shell
+gcc hello.c
+```
+可以發現資料夾底下輸出了`a.out`的執行檔。那如果我們想產生目標檔(object file)來進行其他步驟，而且執行檔的檔名也不要用預設的`a.out`，那我們可以執行以下兩行指令。
 
+```shell
+gcc -c hello.c
+```
+
+可以看到資料夾底下多了`hello.o`的檔案
+
+```shell
+gcc -o hello hello.o
+```
+
+執行完後可以看到`hello`的執行檔
+
+---
+
+### 主副程式連結
+
+如果我們在一個主程式呼叫令一個副程式，就像計程那堂課程一樣，老師要求不能將所有的function打在`main.c`而是要拆出許多的`.c`檔與`.h`檔。那我們應該如何做呢？
+
+請到`./thanks`資料夾，執行以下兩行指令
+
+```shell
+gcc -c thanks.c thanks_2.c
+gcc -o thanks thanks.o thanks_2.o
+```
+
+所以說由於我們的原始碼，並非只有單一一個檔案，所以我們無法直接編譯。這時我們就必須先產生目標檔案，然後以連結的方式，製作成binary可執行檔。如果有一天，更新了`thanks_2.c`，我們只需要重新編譯`thanks_2.c`檔即可。
+
+----
 
 ### 連結外部函式庫
-到 `/image`的資料夾，在這個範例程式中我`#include<opencv2/opencv.hpp>` ，當要編譯這支程式時就必須連結外部函式庫，執行以下指令
+
+到 `./image`的資料夾，在這個範例程式中我`#include<opencv2/opencv.hpp>` ，當要編譯這支程式時就必須連結外部函式庫，執行以下指令
 
 ```shell
 g++ image.cpp -o image2 -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -lopencv_stitching -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_highgui -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hdf -lopencv_hfs -lopencv_img_hash -lopencv_line_descriptor -lopencv_quality -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_shape -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_ml -lopencv_videostab -lopencv_videoio -lopencv_viz -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core
@@ -59,3 +94,20 @@ $ pkg-config --cflags --libs opencv4
 
 
 
+## 使用Make進行編譯
+
+從以上的例子不難發現，當我們要連結許多外部的函式庫，使用gcc進行編譯，將會花費大量的時間撰寫編譯指令，所以說我們就可以使用make這個指令的相關功能進行編譯編譯過程的簡化。
+
+為了解決這個問題於似乎make 就誕生了，那在使用make之前，比須擁有`Makefile` 的檔案，裡面寫著用來確定target檔案的依賴關西，然後把生成這個target的相關命令傳給shell去執行。此外make可以主動的判斷那一個原始碼與相關的target檔案有更新過，並僅更那個檔案，如此一來可大大節省很多編譯的時間。
+
+以下範例在`./make_hello`的資料加當中，請執行以下指令
+
+```shell
+make
+```
+
+執行完後就可以看到執行檔
+
+
+
+__那這次的教學主要目的不是要教Makefile怎麼寫，所以我就不寫相關的教材了（真是抱歉啦！！），因為如何寫一個Makefile又是另一大學問了。只是希望讓大家大致上了解`make`這個工具的用途，以及使用方式，以及cmake的原理。如果對Makefile有興趣的人可能就要麻煩各位自己上網查資料囉！！__
