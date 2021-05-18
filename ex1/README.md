@@ -1,4 +1,4 @@
-# CMake 介紹
+# CMake 教學
 
 在介紹 cmake 之前，必須先介紹c語言在Linux如何被編譯。
 
@@ -72,7 +72,7 @@ gcc -o thanks thanks.o thanks_2.o
 
 ### 連結外部函式庫
 
-到 `./image`的資料夾，在這個範例程式中我`#include<opencv2/opencv.hpp>` ，當要編譯這支程式時就必須連結外部函式庫，執行以下指令
+到 `./image`的資料夾，在這個範例程式中我`#include<opencv2/opencv.hpp>` ，當要編譯這支程式時就必須連結外部函式庫，執行以下兩行指令，就可以看到執行檔
 
 ```shell
 g++ image.cpp -o image2 -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -lopencv_stitching -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_highgui -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hdf -lopencv_hfs -lopencv_img_hash -lopencv_line_descriptor -lopencv_quality -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_shape -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_ml -lopencv_videostab -lopencv_videoio -lopencv_viz -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core
@@ -84,7 +84,7 @@ g++ image.cpp -o image2 -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -lo
 g++ image.cpp -o image2 `pkg-config --cflags --libs opencv4`
 ```
 
-當在終端機輸入`pkg-config --cflags --libs opencv4`可以發現以下輸出
+當在終端機輸入`pkg-config --cflags --libs opencv4`可以發現第一行指令後面的參數就是由這個指令來的
 
 ```shell
 $ pkg-config --cflags --libs opencv4
@@ -96,9 +96,7 @@ $ pkg-config --cflags --libs opencv4
 
 ## 使用Make進行編譯
 
-從以上的例子不難發現，當我們要連結許多外部的函式庫，使用gcc進行編譯，將會花費大量的時間撰寫編譯指令，所以說我們就可以使用make這個指令的相關功能進行編譯編譯過程的簡化。
-
-為了解決這個問題於似乎make 就誕生了，那在使用make之前，比須擁有`Makefile` 的檔案，裡面寫著用來確定target檔案的依賴關西，然後把生成這個target的相關命令傳給shell去執行。此外make可以主動的判斷那一個原始碼與相關的target檔案有更新過，並僅更那個檔案，如此一來可大大節省很多編譯的時間。
+從以上的例子不難發現，當我們要連結許多外部的函式庫，使用gcc進行編譯，將會花費大量的時間撰寫編譯指令，所以為了解決這個問題，於似乎make 就誕生了，那在使用make之前，比須擁有`Makefile` 的檔案，裡面寫著用來確定target檔案的依賴關西，然後把生成這個target的相關命令傳給shell去執行。此外make可以主動的判斷那一個原始碼與相關的target檔案有更新過，並僅更那個檔案，如此一來可大大節省很多編譯的時間。
 
 以下範例在`./make_hello`的資料加當中，請執行以下指令
 
@@ -111,3 +109,36 @@ make
 
 
 __那這次的教學主要目的不是要教Makefile怎麼寫，所以我就不寫相關的教材了（真是抱歉啦！！），因為如何寫一個Makefile又是另一大學問了。只是希望讓大家大致上了解`make`這個工具的用途，以及使用方式，以及cmake的原理。如果對Makefile有興趣的人可能就要麻煩各位自己上網查資料囉！！__
+
+---
+
+### CMake 介紹
+是個一個開源的跨平台自動化建構系統，用來管理軟體建置的程式，並不依賴於某特定編譯器。然而CMake並不直接建構出最終的執行檔，而是產生標準的建構檔（如Unix的`Makefile`或Windows Visual C++的`projects/workspaces`），然後再依一般的建構方式使用。那cmake在使用時必須有`CMakeLists.txt`用來幫助我們建造`Makefile`，產生`Makefile`之後就可以使用make工具來建執行檔。
+
+那在./hello的資料夾中我已經寫好一個最簡單的`CMakeLists.txt`，那執行以下指令（切記後面有一個點（.）），即可生成Makefile檔，以及CMake的相關檔案，接著再使用make進行編譯，最後得到執行檔
+
+```shell
+cmake .
+make
+```
+
+__cmake . 後面的那一個點代表著`CMakeLists.txt`的位置__
+
+試完之後接著將`cmake .`換成`ccmake .`可以發現ccmake 算是cmake 的gui工具，所以說ccmake是基於cmake 開發而成的工具。
+
+接著我們來看看`CMakeLists.txt`
+
+```cmake
+cmake_minimum_required(VERSION 3.2)
+
+project(ex1)
+add_executable(ex1 hello.c)
+```
+
+在這個檔案中最後一行的指令`ex1`就是執行檔的檔名，那`hello.c`就是有`main function`的`.c`檔，從這個範例是不是可以發現，CMake比起make又更加直觀了呢。
+
+
+
+以下展示CMake與make的流程
+
+![cmake简介_蓬莱道人的博客-CSDN博客](https://img-blog.csdnimg.cn/20190228154055525.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01PVV9JVA==,size_16,color_FFFFFF,t_70)
