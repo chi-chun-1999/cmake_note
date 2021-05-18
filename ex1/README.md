@@ -141,4 +141,4 @@ add_executable(ex1 hello.c)
 
 以下展示CMake與make的流程
 
-![cmake简介_蓬莱道人的博客-CSDN博客](../pic/cmkae_and_makefile.jpg)
+![cmake简介_蓬莱道人的博客-CSDN博客](../pic/cmake_and_makefile.jpg)
