@@ -39,4 +39,5 @@ git submodule add git@gitlab.ical.tw:b1065144/serial.git
 接著來看`./util跟./test`
 
 - 第一個部份就是第四行`PROJECT_NAME`
-- 第二個部份就是第六行的`PROJECT_DEPS`，注意這個部份會又順序性的問題
+- 第二個部份就是第六行的`PROJECT_DEPS`，注意這個部份會又順序性的問題以serial做舉例好了
+
