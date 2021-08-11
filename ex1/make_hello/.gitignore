@@ -3,6 +3,7 @@
 !*.c
 !*.h
 !CMakeLists.txt
+!makefile
 !.gitignore
 !*/
 !*.md
